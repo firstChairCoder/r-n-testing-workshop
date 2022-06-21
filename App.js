@@ -1,20 +1,70 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
+import AddList from "./src/components/AddList";
+import ItemsList from "./src/components/ItemList";
+import Error from "./src/components/ErrorComponent";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+  },
+  inputArea: {
+    flex: 2,
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  listArea: {
+    flex: 8,
+    paddingTop: 20,
+    alignItems: "center",
+    width: "80%",
+    marginVertical: 15,
   },
 });
+
+export default function App() {
+  const [listInput, setListInput] = useState("");
+  const [list, setList] = useState([]);
+  const [error, setError] = useState(false);
+
+  const handleInput = text => {
+    setListInput(text);
+  };
+
+  const handleSetList = () => {
+    if (!listInput) {
+      setError(true);
+      return;
+    }
+
+    const newInput = {
+      id: Math.random() * 1000,
+      value: listInput,
+    };
+
+    setList([...list, newInput]);
+    setListInput("");
+    setError(false);
+  };
+
+  const handleDelete = id => {
+    setList(list.filter(item => item.id !== id));
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.inputArea}>
+        <AddList
+          onPressAdd={handleSetList}
+          value={listInput}
+          onChange={handleInput}
+        />
+      </View>
+      <View style={styles.listArea}>
+        <ItemsList data={list} onDelete={handleDelete} />
+        <Error visible={error}>Please insert a valid text</Error>
+      </View>
+    </View>
+  );
+}
