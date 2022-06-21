@@ -4,6 +4,9 @@
     "slug": "learnTDD",
     "version": "1.0.0",
     "orientation": "portrait",
+    "plugins": [
+      "@config-plugins/detox"
+    ],
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -24,7 +27,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.fcc.rntestingworkshop"
     },
     "web": {
       "favicon": "./assets/favicon.png"
