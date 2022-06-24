@@ -3,7 +3,6 @@ const options = {
   singleQuote: false,
   bracketSpacing: true,
   insertPragma: false,
-  jsxBracketSameLine: false,
   jsxSingleQuote: false,
   printWidth: 80,
   proseWrap: "always",
